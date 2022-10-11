@@ -1,0 +1,24 @@
+
+body {
+  font-family: "Noto Sans Mono", monospace;
+}
+.container {
+  margin: auto;
+  padding: 0 15px;
+}
+
+.head {
+  font-size: 35px;
+  font-weight: 600;
+  color: blue;
+  text-align: center;
+}
+
+.logo {
+  background-image: url(3942696f9492c0ce6047.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  width: auto;
+  height: 100vh;
+}
+
