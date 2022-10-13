@@ -1,21 +1,19 @@
 const path = require('path');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const webpack = require('webpack');
-const devMode = process.env.NODE_ENV === "development";
-
 module.exports = {
   mode: "development",
   devServer: {
     static: {
-      directory: path.join(__dirname, 'src'),
+      directory: path.resolve(__dirname, 'src'),
     },
-    compress: true,
     port: 3000,
-    hot: devMode,
+    compress: true,
+    hot: true,
     open: true,
+    historyApiFallback: true,
   },
   context: path.resolve(__dirname, 'src'),
   entry: {
@@ -26,6 +24,7 @@ module.exports = {
   output: {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
+    clean: true,
   },
   resolve: {
     alias: {
@@ -46,12 +45,15 @@ module.exports = {
           from: path.resolve(__dirname, 'src/assets/Rectangleli.svg'),
           to: path.resolve(__dirname, 'dist/assets/Rectangleli.svg')
         },
+        {
+          from: path.resolve(__dirname, 'src/assets/IMAGEthedark.png'),
+          to: path.resolve(__dirname, 'dist/assets/IMAGEthedark.png')
+        }
       ],
     }),
     new webpack.ProgressPlugin(),
-    new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
-      filename: '[name].bundle.css',
+      filename: '[name].chunk.css',
     }),
     new HtmlWebpackPlugin({
       template: './index.html',
@@ -62,10 +64,10 @@ module.exports = {
 
   module: {
     rules: [
-      {
-        test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
-      },
+      // {
+      //   test: /\.css$/i,
+      //   use: ["style-loader", "css-loader"],
+      // },
       {
         test: /\.css$/i,
         use: [MiniCssExtractPlugin.loader, "css-loader"],
